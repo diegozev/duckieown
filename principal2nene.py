@@ -56,9 +56,22 @@ def obtener_fuga(frame):
     u_s = 50
     u_v = 255
 
-    lower = np.array([l_h, l_s, l_v])
-    upper = np.array([u_h, u_s, u_v])
-    mask = cv2.inRange(hsv_transformed_frame, lower, upper)
+    # Rango para el blanco
+    lower = np.array([l_h,l_s,l_v])
+    upper = np.array([u_h,u_s,u_v])
+
+    # Rangos de color para la línea amarilla
+    lower_yellow = np.array([25, 50, 100])
+    upper_yellow = np.array([35, 255, 255])
+
+    hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+    # Máscaras para la línea blanca y la línea amarilla
+    mask_white = cv2.inRange(hsv_transformed_frame, lower, upper)
+    mask_yellow = cv2.inRange(hsv_frame, lower_yellow, upper_yellow)
+
+    # Unir las máscaras para detectar ambas líneas
+    mask = cv2.bitwise_or(mask_white, mask_yellow)
 
     histogram = np.sum(mask[mask.shape[0] // 2:, :], axis=0)
     midpoint = int(histogram.shape[0] / 2)
