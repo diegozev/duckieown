@@ -26,29 +26,11 @@ def detect_green_hexagon(image):
             aspect_ratio = float(w) / h
             area = cv2.contourArea(contour)
             if 0.9 <= aspect_ratio <= 1.1 and 1000 <= area <= 5000:
-                print("hexagon")
+                return 1
+            else:
+                return 0 
 
-                # Draw a bounding rectangle around the hexagon on the image
-                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-    # Display the image with detected hexagons
-    cv2.imshow("Detected Hexagons", image)
-    cv2.waitKey(1)
 
-# Open the video file
-video = cv2.VideoCapture('D:/Downloads/f.mp4')
 
-# Read frames from the video until it's completed
-while video.isOpened():
-    ret, frame = video.read()
-
-    if not ret:
-        break
-
-    # Call the function to detect green hexagons
-    detect_green_hexagon(frame)
-
-# Release the video capture object
-video.release()
-cv2.destroyAllWindows()
 
