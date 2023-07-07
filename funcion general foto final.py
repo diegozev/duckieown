@@ -22,9 +22,8 @@ def main():
 
 #########################################################################################################################################
 #la siguiente funcion detecta si estamos dentro de las lineas correctas.
-frame = main()
 
-camino=obtener_fuga(frame)
+camino=obtener_fuga(main())
 
     
 #########################################################################################################################################
@@ -82,7 +81,7 @@ def countWhitePixels(frame):
         return cruce
 
 #funcion de deteccion signo pare.    
-pare=detect_green_hexagon(frame)
+pare=detect_green_hexagon(main())
 
 
 #########################################################################################################################################
