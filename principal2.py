@@ -5,22 +5,6 @@ import time
 import sys
 # import camera
 
-sys.path.append('../')
-camino=0
-
-video_path=('patovideobueno.mp4')
-cap = cv2.VideoCapture(video_path) 
-
-# Check if the video file was successfully opened
-if not cap.isOpened():
-    print("Error opening video file")
-
-ret, frame = cap.read()
-
-if not ret:
-    print("No se pudo leer el fotograma")
-    exit()
-
 cv2.imwrite("fotograma.jpg", frame)   
 
 ##########################################  VIDEO PUNTO MEDIO  #################
@@ -73,47 +57,4 @@ def obtener_fuga(frame):
     else: #(menor a 250)
         return 1 #enderezarse
     # print(distancia,' ',fuga)
-
-#########################################################################
-def line(frame):
-    camino =  1
-    ptofuga = obtener_fuga(frame)
-    if ptofuga>150:
-        camino = 0
-    elif ptofuga>150 and ptofuga<250:
-        camino = 2
-    else: 
-        camino = 1
-
-##########################################################################
-def main(camino):
-
-    camino=line(frame)
-
-    if (camino==0):
-        base_comm.forward()
-
-    elif (camino==1):
-        base_comm.lateral_left
-        time.sleep(1)
-        base_comm.forward()
-
-    elif camino==2:
-        base_comm.spin_left
-        time.sleep(1)
-        
-           
-if __name__ == "__main__":
-    base_comm = SerialControl()
-    base_comm.open_serial()
-    time.sleep(1)
-    main()
-
-while True:
-    ret, frame = cap.read()    
-    if not ret:
-       break
-
-cap.release()
-cv2.destroyAllWindows()
 
