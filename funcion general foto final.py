@@ -31,17 +31,17 @@ camino=obtener_fuga(frame)
     #la siguiente funcion detecta si tenemos un pato dentro del frame
 def detectarpatos(frame):
     hsv_image = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-# Define the lower and upper thresholds for the red color range
+# Define the lower and upper thresholds for the orange color
     lower_orange = np.array([0, 40, 90])
     upper_orange = np.array([4, 255, 255])
 
     orange_mask = cv2.inRange(hsv_image, lower_orange, upper_orange)
 
-# Find contours of red and green regions
+# Find contours of orange regions
     orange_contours, _ = cv2.findContours(orange_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
 
-# Draw bounding boxes around red apples
+# Draw bounding boxes around orange ducks
     for cnt in orange_contours:
         area = cv2.contourArea(cnt)
     if area > 25000:  # Ignore small contours
@@ -52,6 +52,7 @@ def detectarpatos(frame):
         patos=0   
     return patos
 
+#funcion para determinar el cruce patonal
 def warpImg(frame, points, w, h, inv=False):
     pts1 = np.float32(points)
     pts2 = np.float32([[0, 0], [w, 0], [0, h], [w, h]])
