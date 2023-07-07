@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
 
-img = cv2.imread('D:/Downloads/las.png')
-
 
 def warpImg(img, points, w, h, inv=False):
     pts1 = np.float32(points)
