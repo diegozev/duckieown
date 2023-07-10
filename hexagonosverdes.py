@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 
 def detect_green_hexagon(image):
+    image= cv2.imread('image.jpg')
     # Convert image to HSV color space
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
@@ -28,7 +29,12 @@ def detect_green_hexagon(image):
             if 0.9 <= aspect_ratio <= 1.1 and 1000 <= area <= 5000:
                 return 1
             else:
-                return 0 
+                return 0
+
+
+
+
+
 
 
 
